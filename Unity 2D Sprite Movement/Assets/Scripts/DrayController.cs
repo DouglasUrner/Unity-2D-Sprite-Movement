@@ -11,48 +11,34 @@ public class DrayController : MonoBehaviour
   private Rigidbody rb;
   private Animator anim;
 
-    // Awake is called when the game object becomes active.
-    void Awake()
+    // Start() is called once before the first frame.
+    void Start()
     {
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
+    // Update() is called once per frame
     void Update()
     {
-        dirHeld = -1;
-        anim.speed = 0;
+      Vector3[] vels = {Vector3.right, Vector3.up, Vector3.left, Vector3.down};
+      var vel = Vector3.zero;
 
-        if (Input.GetKey(KeyCode.RightArrow)) {dirHeld = 0;}
-        if (Input.GetKey(KeyCode.UpArrow)) {dirHeld = 1;}
-        if (Input.GetKey(KeyCode.LeftArrow)) {dirHeld = 2;}
-        if (Input.GetKey(KeyCode.DownArrow)) {dirHeld = 3;}
+      anim.speed = 0; // Speed the animator runs at.
 
-        var vel = Vector3.zero;
-        switch (dirHeld) {
-          case 0:
-            vel = Vector3.right;
-            anim.CrossFade("Dray_Walk_" + dirHeld, 0);
-            anim.speed = 1;
-            break;
-          case 1:
-            vel = Vector3.up;
-            anim.CrossFade("Dray_Walk_" + dirHeld, 0);
-            anim.speed = 1;
-            break;
-          case 2:
-            vel = Vector3.left;
-            anim.CrossFade("Dray_Walk_" + dirHeld, 0);
-            anim.speed = 1;
-            break;
-          case 3:
-            vel = Vector3.down;
-            anim.CrossFade("Dray_Walk_" + dirHeld, 0);
-            anim.speed = 1;
-            break;
-        }
+      int dir = -1;
 
-        rb.velocity = vel * speed;
+      if (Input.GetKey(KeyCode.RightArrow)) {dir = 0;}
+      if (Input.GetKey(KeyCode.UpArrow)) {dir = 1;}
+      if (Input.GetKey(KeyCode.LeftArrow)) {dir = 2;}
+      if (Input.GetKey(KeyCode.DownArrow)) {dir = 3;}
+
+      if (dir != -1) {
+        vel = vels[dir];
+        anim.CrossFade("Dray_Walk_" + dir, 0);
+        anim.speed = 1;
+      }
+
+      rb.velocity = vel * speed;
     }
 }
