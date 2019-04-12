@@ -6,7 +6,7 @@ public class DrayController : MonoBehaviour
 {
   public float speed = 5;
 
-  public int dirHeld = -1; // Direction of held movement key.
+  public int dir = -1; // Direction of held movement key.
 
   private Rigidbody rb;
   private Animator anim;
@@ -26,7 +26,7 @@ public class DrayController : MonoBehaviour
 
       anim.speed = 0; // Speed the animator runs at.
 
-      int dir = -1;
+      dir = -1;
 
       if (Input.GetKey(KeyCode.RightArrow)) {dir = 0;}
       if (Input.GetKey(KeyCode.UpArrow)) {dir = 1;}
